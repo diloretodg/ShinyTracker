@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MainPg from './components/page/mainPg'
+import MainPg from './page/mainPg'
 import './App.css';
 
 class App extends Component {

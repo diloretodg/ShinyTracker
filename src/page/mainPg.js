@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Card from '../Card/';
-import Thumbnail from '../Thumbnail';
-import Button from '../Button';
-import { Container, Row, Col } from "../Grid";
+import Card from '../components/Card';
+import Thumbnail from '../components/Thumbnail';
+import Button from '../components/Button';
+import { Container, Row, Col } from "../components/Grid";
 
 
 class MainPg extends Component {
