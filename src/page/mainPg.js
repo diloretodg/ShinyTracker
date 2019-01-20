@@ -2,18 +2,35 @@ import React, { Component } from 'react';
 import Card from '../components/Card';
 import Thumbnail from '../components/Thumbnail';
 import Button from '../components/Button';
+import {List, ListItem} from "../components/List";
 import { Container, Row, Col } from "../components/Grid";
-
+import API from '../utils/API';
 
 class MainPg extends Component {
 
     state = {
         count: 0,
-        current: 'Pikipek',
-        method: 'SOS',
-        currentImg: "https://i.imgur.com/i6UWH3c.gif"
+        pokedex: {},
+        current: '',
+        method: '',
+        currentImg: ""
     }
-
+    componentDidMount() {
+        this.loadPokedex()
+    };
+    loadPokedex = () => {
+        API.getAllMon()
+        .then(res => 
+            this.setState({
+                pokedex: res.data.results
+            })
+        )
+        .catch(err => console.log(err));
+        this.logdex();
+    };
+    logdex(){
+        console.log(this.state.pokedex)
+    };
     increaseHunt(){
         this.setState({count: this.state.count +1})
     };
@@ -47,6 +64,19 @@ class MainPg extends Component {
                             <Button type='default' onClick={() => this.resetHunt()} />
                             <p>Current Count: {this.state.count}</p>
                         </Card>
+                    </Col>
+                    <Col size="md-4">
+                        <div>
+                            {this.state.pokedex.length ? (
+                                <List>
+                                    {this.state.pokedex.map((item, index) => {
+                                       return <ListItem key={index}>{index+1}. {item.name}</ListItem>
+                                    })}
+                                </List>
+                            ) : (
+                                <p>Pokedex is Loading</p>
+                            )}
+                        </div>
                     </Col>
                 </Row>
             </Container>
