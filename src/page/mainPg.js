@@ -17,7 +17,9 @@ class MainPg extends Component {
             num: '',
             name: '',
             url: '',
-            shinyCharm: true
+            odds: 0,
+            shinyCharm: true,
+
         },
         num: '',
         name: '',
@@ -42,7 +44,7 @@ class MainPg extends Component {
         API.getAllMon()
         .then(res => 
             this.setState({
-                pokedex: res.data.results
+                pokedex: res.data
             })
         )
         .catch(err => console.log(err));
@@ -89,12 +91,13 @@ class MainPg extends Component {
                 <Row>
                     <Col size="md-6">
                         <div>
-                            {this.state.pokedex.length ? (
+                            {this.state.pokedex.pokemon_entries ? (
                                 <List>
-                                    {this.state.pokedex.map((item, index) => {
+                                    {this.state.pokedex.pokemon_entries.map((item, index) => {
+                                        var pokemon = item.pokemon_species
                                        return <ListItem  key={index}>
-                                       <a href={item.url}>{item.url}</a>
-                                       <p className="cap">{index+1}. {item.name}</p>
+                                       <a href={pokemon.url}>{pokemon.url}</a>
+                                       <p className="cap">{index+1}. {pokemon.name}</p>
 
                                        </ListItem>
                                     })}
@@ -108,9 +111,10 @@ class MainPg extends Component {
                        
                         {this.state.pokemon.sprites ? (
                             <Card
-                                heading={'Looking for: '+this.state.pokemon.name || "Select a Pokemon"}
+                                heading={'Looking for: #'+this.state.pokemon.id+' '+this.state.pokemon.name || "Select a Pokemon"}
                              >
-                                <Thumbnail src ={this.state.pokemon.sprites.front_shiny || "https://place-hold.it/300"}/>
+                                <Thumbnail src ={('http://pokemon.night.coffee/icons/shiny/'+ this.state.pokemon.name +'.gif') || "https://place-hold.it/300"}/>
+                                <Thumbnail src ={('http://pokemon.night.coffee/icons/normal/'+ this.state.pokemon.name +'.gif') || "https://place-hold.it/300"}/>
                                 {this.state.pokemon.abilities.map(ability =>{
                                     return(
                                         <p>{ability.is_hidden ?(<strong>HA: {ability.ability.name}</strong>):(<span>{ability.ability.name}</span>)}</p>
