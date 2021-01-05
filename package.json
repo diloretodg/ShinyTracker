@@ -4,7 +4,7 @@
   "description": "A fun tool to aid in hunts for Shinies",
   "main": "index.js",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "enzyme-to-json": "^3.3.5",
     "express": "^4.16.4",
     "mongoose": "^5.4.1",
